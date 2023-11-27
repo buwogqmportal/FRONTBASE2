@@ -224,7 +224,7 @@
 
   onMount(() => {
     dropzone = new BigDropzone(ref, {
-      url: `${serverURL}file/set`,
+      url: `${fileURL}file/set`,
       withCredentials: true,
       disablePreviews: true,
       acceptedFiles: accept,

@@ -16,7 +16,7 @@
 
   // lib
   import { type APIFile, APIFileViewRight, FileRequest } from '$baselib/api/file';
-  import { serverURL, sessionName } from '$baselib/config';
+  import { fileURL, sessionName } from '$baselib/config';
   import { connectionSend, state, userHasRight } from '$baselib/stores';
   import type { APIResponse } from '$baselib/api';
 

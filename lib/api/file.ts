@@ -41,7 +41,7 @@ export const FileRequest = {
   },
 
   async getInfo(file_ID: string): Promise<APIFile> {
-    const response = await get(connectionSend)<APIFile>('file/getinfo', { file_ID });
+    const response = await get(connectionSend)<APIFile>('file/getinfo', { file_ID }, { url: fileURL });
 
     if (response.status === 404) {
       throw new APINotFoundError();
@@ -51,7 +51,7 @@ export const FileRequest = {
   },
 
   async updateInfo(file: { file_ID: string } & Partial<APIFile>): Promise<void> {
-    const response = await get(connectionSend)<APIFile>('file/updateinfo', file);
+    const response = await get(connectionSend)<APIFile>('file/updateinfo', file, { url: fileURL });
 
     if (response.status === 404) {
       throw new APINotFoundError();
@@ -62,7 +62,7 @@ export const FileRequest = {
    * Gets all files with file_type and file_type_ID.
    */
   async getFileType(file_type: string, file_type_ID: string): Promise<APIFile[]> {
-    const response = await get(connectionSend)<APIFile | APIFile[]>('file/getfiletype', { file_type, file_type_ID });
+    const response = await get(connectionSend)<APIFile | APIFile[]>('file/getfiletype', { file_type, file_type_ID }, { url: fileURL });
 
     if (response.status === 404) {
       return [];
@@ -75,6 +75,7 @@ export const FileRequest = {
     file: Partial<APIFile> & { file_view_right?: APIFileViewRight; file_function?: string },
     dataURI: string,
   ): Promise<Record<string, string>> {
+    console.log(fileURL);
     const response = await get(connectionSend)<Record<string, string>>('file/set', { ...file, file_base64: dataURI }, { url: fileURL });
 
     if (response.status === 406) {
@@ -85,7 +86,7 @@ export const FileRequest = {
   },
 
   async del(file_ID: string): Promise<boolean> {
-    const response = await get(connectionSend)<boolean>('file/delete', { file_ID });
+    const response = await get(connectionSend)<boolean>('file/delete', { file_ID }, { url: fileURL });
 
     if (response.status === 404) {
       throw new APINotFoundError();

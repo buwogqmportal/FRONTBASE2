@@ -75,7 +75,7 @@ export const FileRequest = {
     file: Partial<APIFile> & { file_view_right?: APIFileViewRight; file_function?: string },
     dataURI: string,
   ): Promise<Record<string, string>> {
-    const response = await get(connectionSend)<Record<string, string>>('file/set', { ...file, file_base64: dataURI });
+    const response = await get(connectionSend)<Record<string, string>>('file/set', { ...file, file_base64: dataURI }, { url: fileURL });
 
     if (response.status === 406) {
       throw new APIGenericError('file too large');
